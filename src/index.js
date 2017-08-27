@@ -8,6 +8,7 @@ import thunk from 'redux-thunk';
 import reducer from './reducer/index';
 import { Provider } from 'react-redux';
 
+
 // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 
 // const logger = store => next => action => {

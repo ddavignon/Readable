@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import { fetchPosts } from '../actions/index';
 
 class PostsMain extends Component {
@@ -7,16 +8,31 @@ class PostsMain extends Component {
         this.props.fetchPosts();
     }
     
+    renderPosts() {
+        return (this.props.posts).map(post => {
+            return (
+                <ListGroupItem
+                    header={post.title}
+                    key={post.id}
+                >
+                    <div>{post.timestamp} by {post.author}</div> 
+                    <div>{post.body}</div>
+                    <div>{post.category} {post.voteScore}</div>
+                </ListGroupItem>
+            );
+        });
+    }
+    
     render() {
-        console.log('state props', this.props)
         return (
-            <div>Hello Posts</div>
+            <ListGroup componentClass="ul">
+                {this.renderPosts()}
+            </ListGroup>
         );
     }
 }
 
 function mapStateToProps (state) {
-    console.log(state);
     return { posts: state.posts.all }
 }
 
