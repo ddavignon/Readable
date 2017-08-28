@@ -4,7 +4,7 @@ import  {
     FETCH_POST,
     EDIT_POST,
     DELETE_POST
-} from '../actions/index';
+} from '../actions';
 
 const INITIAL_STATE = {
     all: [],
@@ -15,19 +15,21 @@ export default function (state = INITIAL_STATE, action) {
     switch (action.type) {
         case FETCH_POSTS:
             return {
-                ...state, all: action.payload
+                ...state,
+                all: action.payload
             }
         case FETCH_POST:
             return {
-                ...state, post: action.payload
+                ...state,
+                post: action.payload
             }
         case EDIT_POST:
             return {
-                ...state, post: action.payload
+                ...state,
+                post: action.payload
             }
-        case DELETE_POST: {
+        case DELETE_POST:
             return _.omit(state, action.payload);
-        }
         default:
             return state;
     }

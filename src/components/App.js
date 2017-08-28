@@ -4,19 +4,23 @@ import { Grid } from 'react-bootstrap';
 import PostsMain from './PostsMain';
 import PostsDetail from './PostsDetail';
 import PostsNew from './PostsNew';
-import PostsEdit from './PostsEdit';
+import PostsEdit from './PostsEdit'
+import NavbarHeader from './NavbarHeader';
 
 class App extends Component {
   render() {
     return (
-      <Grid>
-        <Switch>
-          <Route path="/" exact component={PostsMain} />
-          <Route path="/posts/new" component={PostsNew} />
-          <Route path="/posts/edit/:id" children={props => <PostsEdit {...props}/>} />
-          <Route path="/posts/:id" component={PostsDetail} />
-        </Switch>
-      </Grid>
+      <div>
+        <NavbarHeader />
+        <Grid>
+          <Switch>
+            <Route path="/" exact component={PostsMain} />
+            <Route path="/posts/new" component={PostsNew} />
+            <Route path="/posts/edit/:id" children={props => <PostsEdit {...props}/>} />
+            <Route path="/posts/:id" component={PostsDetail} />
+          </Switch>
+        </Grid>
+      </div>
     );
   }
 }

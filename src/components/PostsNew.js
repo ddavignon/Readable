@@ -7,9 +7,13 @@ import {
     Button
 } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { createPost } from '../actions';
+import { createPost, fetchCategories } from '../actions';
 
 class PostsNew extends Component {
+    
+    componentWillMount() {
+        this.props.fetchCategories();
+    }
     
     renderField(field) {
         const { meta: { touched, error } } = field;
@@ -36,7 +40,7 @@ class PostsNew extends Component {
     }
     
     render() {
-        const { handleSubmit } = this.props;
+        const { handleSubmit, categories } = this.props;
         
         return (
             <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
@@ -55,6 +59,17 @@ class PostsNew extends Component {
                 name="author"
                 component={this.renderField}
               />
+              <Field name="category" component="select">
+                {categories.map(category => (
+                    <option
+                        key={category.name}
+                        value={category.name}
+                    >
+                        {category.name}
+                    </option>
+                ))}
+              </Field>
+              <br />
               <Button type="submit" bsStyle="primary">Submit</Button>
               <Link to="/" className="btn btn-danger">Cancel</Link>
             </form>
@@ -77,12 +92,22 @@ function validate(values) {
         errors.body = "Enter some content!"
     }
     
+    if (!values.category) {
+        errors.category = "Enter some content!"
+    }
+    
     return errors;
+}
+
+function mapStateToProps(state) {
+    return { categories: state.categories.all }
 }
 
 export default reduxForm({
     validate,
     form: 'CreatePostForm'
 })(
-    connect(null, { createPost })(PostsNew)
+    connect(mapStateToProps, {
+        createPost, fetchCategories
+    })(PostsNew)
 );

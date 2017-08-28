@@ -8,6 +8,8 @@ export const DELETE_POST = 'delete_post';
 export const UPVOTE_POST = 'upvote_post';
 export const DOWNVOTE_POST = 'downvote_post';
 
+export const FETCH_CATEGORIES = 'fetch_categories';
+
 const ROOT_URL = 'https://udacity-react-project2-dustindavignon.c9users.io:8081';
 const AUTH_HEADERS = { 'Authorization': 'whatever-you-want', 'Accept': 'application/json', };
 
@@ -21,6 +23,10 @@ function guid() {
   }
   return s4() + s4() + s4() + s4() + s4();
 }
+
+/*
+Actions for posts
+*/
 
 export function fetchPosts() {
         
@@ -41,14 +47,16 @@ export function fetchPost(id) {
 }
 
 export function createPost(values, callback) {
+    const { title, body, author, category } = values;
+    
     const data = {
         id: guid(),
         timestamp: Date.now(),
-        title: values.title,
-        body: values.body,
-        author: values.author,
+        title,
+        body,
+        author,
         deleted: false,
-        category: "react"
+        category
     }
         
     return dispatch => {
@@ -62,9 +70,7 @@ export function createPost(values, callback) {
 }
 
 export function editPost(id, values, callback) {
-    
-    console.log(id, values);
-
+  
     return dispatch => {
         axios.put(`${ROOT_URL}/posts/${id}`, values)
             .then(res => {
@@ -119,4 +125,24 @@ function deletePostSuccess(data) {
         type: DELETE_POST,
         payload: data
     }
+}
+
+/*
+Actions for categories
+*/
+
+export function fetchCategories() {
+        
+    return dispatch => {
+        axios.get(`${ROOT_URL}/categories`)
+            .then(res => dispatch(fetchCategoriesSuccess(res.data)));
+        
+    }
+}
+
+function fetchCategoriesSuccess(data) {
+    return {
+        type: FETCH_CATEGORIES,
+        payload: data
+    };
 }
