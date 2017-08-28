@@ -1,6 +1,8 @@
+import _ from 'lodash';
 import  {
     FETCH_POSTS,
-    FETCH_POST
+    FETCH_POST,
+    DELETE_POST
 } from '../actions/index';
 
 const INITIAL_STATE = {
@@ -18,6 +20,9 @@ export default function (state = INITIAL_STATE, action) {
             return {
                 ...state, post: action.payload
             }
+        case DELETE_POST: {
+            return _.omit(state, action.payload);
+        }
         default:
             return state;
     }
