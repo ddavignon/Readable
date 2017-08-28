@@ -68,8 +68,8 @@ export function editPost(id, values, callback) {
     return dispatch => {
         axios.put(`${ROOT_URL}/posts/${id}`, values)
             .then(res => {
-                console.log(res);
                 callback();
+                dispatch(editPostSuccess(res.data))
             });
         
     }
@@ -81,7 +81,7 @@ export function deletePost(id, callback) {
         axios.delete(`${ROOT_URL}/posts/${id}`)
             .then(res => {
                 callback();
-                dispatch(deletePostSuccess(res.data));
+                dispatch(deletePostSuccess(id));
             });        
     }
 }
@@ -105,6 +105,13 @@ function createPostSuccess(data) {
         type: CREATE_POST,
         payload: data
     };
+}
+
+function editPostSuccess(data) {
+    return {
+        type: EDIT_POST,
+        payload: data
+    }
 }
 
 function deletePostSuccess(data) {

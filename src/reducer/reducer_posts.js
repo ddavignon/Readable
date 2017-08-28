@@ -2,6 +2,7 @@ import _ from 'lodash';
 import  {
     FETCH_POSTS,
     FETCH_POST,
+    EDIT_POST,
     DELETE_POST
 } from '../actions/index';
 
@@ -17,6 +18,10 @@ export default function (state = INITIAL_STATE, action) {
                 ...state, all: action.payload
             }
         case FETCH_POST:
+            return {
+                ...state, post: action.payload
+            }
+        case EDIT_POST:
             return {
                 ...state, post: action.payload
             }
