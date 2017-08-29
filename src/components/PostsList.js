@@ -24,11 +24,11 @@ class PostsList extends Component {
         }
         
         if (posts) {
-            return _.map(posts, (post, id) => {
+            return _.map(posts, post => {
                 return (
                         <ListGroupItem
                             header={post.title}
-                            key={id}
+                            key={post.id}
                         >
                             <div>{timestampToDate(post.timestamp)} by {post.author}</div> 
                             <div>{post.body}</div>
@@ -36,10 +36,10 @@ class PostsList extends Component {
                             <Link to={`posts/${post.id}`} key={post.id}>
                                 <Button>Read Post</Button>
                             </Link>
-                            <Button onClick={() => voteForPost(id, 'upVote')}>
+                            <Button onClick={() => voteForPost(post.id, 'upVote')}>
                                 upvote
                             </Button>
-                            <Button onClick={() => voteForPost(id, 'downVote')}>
+                            <Button onClick={() => voteForPost(post.id, 'downVote')}>
                                 downvote
                             </Button>
                         </ListGroupItem>
