@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap';
 import CommentsList from './CommentsList';
 import { fetchPost, deletePost } from '../actions';
 
+
 class PostsDetail extends Component {
     componentWillMount() {
         this.props.fetchPost(this.props.match.params.id);

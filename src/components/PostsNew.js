@@ -68,7 +68,7 @@ class PostsNew extends Component {
     }
     
     render() {
-        const { handleSubmit, categories, form } = this.props;
+        const { handleSubmit } = this.props;
         
         return (
             <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
@@ -93,7 +93,6 @@ class PostsNew extends Component {
                 component={field => this.renderCategoryFields(field)} 
                 >
               </Field>
-              <br />
               <Button type="submit" bsStyle="primary">Submit</Button>
               <Link to="/" className="btn btn-danger">Cancel</Link>
             </form>

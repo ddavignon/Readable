@@ -16,7 +16,7 @@ class CommentsDetail extends Component {
     }
     
     render() {
-        const { comment, match } = this.props;
+        const { comment } = this.props;
         
         if (!comment) {
             return <div>Loading...</div>;

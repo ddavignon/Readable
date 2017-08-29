@@ -61,19 +61,21 @@ class PostsEdit extends Component {
         return (
             <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                 <Field
-                label="Title"
+                label="Title:"
                 name="title"
                 component={this.renderField}
                 />
                 <Field
-                label="Content"
+                label="Content:"
                 name="body"
                 component={this.renderField}
                 />
-                <ControlLabel>Author</ControlLabel>
-                <FormControl.Static>{post ? post.author : ''}</FormControl.Static>
+                <FormGroup>
+                    <ControlLabel>Author</ControlLabel>
+                    <FormControl.Static>{post ? post.author : ''}</FormControl.Static>
+                </FormGroup>
                 <Button type="submit" bsStyle="primary">Update</Button>
-                <Link to={`/posts/${post.id}`} className="btn btn-danger">Cancel</Link>
+                <Link to={`/posts/${post ? post.id : ''}`} className="btn btn-danger">Cancel</Link>
             </form>
         );
     }
