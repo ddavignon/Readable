@@ -5,6 +5,7 @@ import PostsMain from './PostsMain';
 import PostsDetail from './PostsDetail';
 import PostsNew from './PostsNew';
 import PostsEdit from './PostsEdit'
+import CommentsDetail from './CommentsDetail';
 import NavbarHeader from './NavbarHeader';
 
 class App extends Component {
@@ -18,6 +19,7 @@ class App extends Component {
             <Route path="/posts/new" component={PostsNew} />
             <Route path="/posts/edit/:id" children={props => <PostsEdit {...props}/>} />
             <Route path="/posts/:id" component={PostsDetail} />
+            <Route path="/comments/:id" exact component={CommentsDetail} />
           </Switch>
         </Grid>
       </div>

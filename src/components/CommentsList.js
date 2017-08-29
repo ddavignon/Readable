@@ -31,8 +31,8 @@ class CommentsList extends Component {
                             <div>{timestampToDate(post.timestamp)} by {post.author}</div> 
                             <div>{post.body}</div>
                             <div>{post.category} {post.voteScore}</div>
-                            <Link to={`posts/${post.id}`} key={post.id}>
-                                <Button>Read Post</Button>
+                            <Link to={`/comments/${post.id}`} key={post.id}>
+                                <Button>Read Comment</Button>
                             </Link>
                             <Button onClick={() => voteForComment(post.id, 'upVote')}>
                                 upvote
