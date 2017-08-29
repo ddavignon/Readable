@@ -1,30 +1,30 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import {
     FormGroup,
     FormControl,
-    Button,
-    ControlLabel
+    ControlLabel,
+    Button
 } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { editPost, fetchPost } from '../actions';
+import { fetchCommentPost, editPostComment } from '../actions';
 
-class PostsEdit extends Component {
+class CommentsEdit extends Component {
+    
     componentWillMount() {
-        this.props.fetchPost(this.props.match.params.id);
+        this.props.fetchCommentPost(this.props.match.params.id);
     }
     
     componentDidMount() {
         this.handleInitialize();
-        
     }
     
     handleInitialize() {
-        if (this.props.post) {
+        if (this.props.comment) {
           const initData = {
-            "title": this.props.post.title,
-            "body": this.props.post.body
+            "body": this.props.comment.body
           };
           this.props.initialize(initData);
         }
@@ -36,7 +36,7 @@ class PostsEdit extends Component {
         
         return (
             <FormGroup validationState={className}>
-                <ControlLabel>{field.label}</ControlLabel>
+                <label>{field.label}</label>
                 <FormControl
                     type="text"
                     {...field.input}
@@ -49,31 +49,25 @@ class PostsEdit extends Component {
     }
     
     onSubmit(values) {
-        const { editPost, match: { params: { id } }, history } = this.props;
-        
-        editPost(id, values, () => {
-            history.push(`/posts/${id}`);
+        const postId = this.props.match.params.id
+        this.props.editPostComment(postId, values, () => {
+            this.props.history.push(`/comments/${postId}`);
         });
     }
     
     render() {
-        const { handleSubmit, post } = this.props;
+        const { handleSubmit, match, comment } = this.props;
         return (
             <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                <Field
-                label="Title"
-                name="title"
-                component={this.renderField}
-                />
-                <Field
-                label="Content"
+              <Field
+                label="Comment"
                 name="body"
                 component={this.renderField}
-                />
-                <ControlLabel>Author</ControlLabel>
-                <FormControl.Static>{post ? post.author : ''}</FormControl.Static>
+              />
+              <ControlLabel>Author</ControlLabel>
+                <FormControl.Static>{comment ? comment.author : ''}</FormControl.Static>
                 <Button type="submit" bsStyle="primary">Update</Button>
-                <Link to={`/posts/${post.id}`} className="btn btn-danger">Cancel</Link>
+              <Link to={`/comments/${match.params.id}`} className="btn btn-danger">Cancel</Link>
             </form>
         );
     }
@@ -82,29 +76,27 @@ class PostsEdit extends Component {
 function validate(values) {
     const errors = {};
     
-    if (!values.title) {
-        errors.title = "Enter a title!"
-    }
-    
     if (!values.author) {
         errors.author = "Enter a name!"
     }
     
     if (!values.body) {
-        errors.body = "Enter some content!"
+        errors.body = "Enter a comment!"
     }
-    
+
     return errors;
 }
 
 function mapStateToProps(state, ownProps) {
-    return { post: state.posts[ownProps.match.params.id] }
+    return { comment: state.comments[ownProps.match.params.id] }
 }
 
 
 export default reduxForm({
     validate,
-    form: 'EditPostForm'
+    form: 'EditCommentForm'
 })(
-    connect(mapStateToProps, { editPost, fetchPost })(PostsEdit)
+    connect(mapStateToProps, {
+        fetchCommentPost, editPostComment
+    })(CommentsEdit)
 );

@@ -40,6 +40,9 @@ class PostsDetail extends Component {
                 <h2>{post.title}</h2>
                 <h4>{post.author} <small>{post.category}</small></h4>
                 <p>{post.body}</p>
+                <Link to={`/posts/${post.id}/comments/new`}>
+                    <Button>Add comment</Button>
+                </Link>
                 <CommentsList postId={post.id} />
             </div>    
         );

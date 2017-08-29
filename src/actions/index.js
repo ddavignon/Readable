@@ -12,6 +12,8 @@ export const FETCH_CATEGORY_POSTS = 'fetch_category_posts';
 
 export const FETCH_POST_COMMENTS = 'fetch_post_comments';
 export const FETCH_COMMENT_POST = 'fetch_comment_post';
+export const CREATE_COMMENT_POST = 'create_comment_post';
+export const EDIT_COMMENT_POST = 'edit_comment_post';
 export const DELETE_COMMENT_POST = 'delete_comment_post';
 export const VOTE_COMMENT = 'vote_comment';
 
@@ -60,7 +62,6 @@ export function createPost(values, callback) {
         title,
         body,
         author,
-        deleted: false,
         category
     }
         
@@ -184,6 +185,41 @@ export function fetchCommentPost(id) {
         
     }
 }
+
+export function createPostComment(values, parentId, callback) {
+    const { body, author } = values;
+    
+    const data = {
+        id: guid(),
+        parentId,
+        timestamp: Date.now(),
+        body,
+        author
+    }
+        
+    return dispatch => {
+        axios.post(`${ROOT_URL}/comments`, data)
+            .then(res => {
+                callback();
+                dispatch({ type: CREATE_COMMENT_POST, payload: res.data });
+            });
+        
+    }
+}
+
+export function editPostComment(id, values, callback) {
+  
+    return dispatch => {
+        axios.put(`${ROOT_URL}/comments/${id}`, values)
+            .then(res => {
+                callback();
+                console.log(id, values)
+                dispatch({ type: EDIT_COMMENT_POST, payload: res.data })
+            });
+        
+    }
+}
+
 
 export function deleteCommentPost(id, callback) {
      return dispatch => {

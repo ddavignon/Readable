@@ -22,7 +22,7 @@ export default function (state = INITIAL_STATE, action) {
         case EDIT_POST:
             return {
                 ...state,
-                post: action.payload
+                [action.payload.id]: action.payload
             }
         case DELETE_POST:
             return _.omit(state, action.payload);

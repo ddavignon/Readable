@@ -2,6 +2,7 @@ import _ from 'lodash';
 import  {
     FETCH_POST_COMMENTS,
     FETCH_COMMENT_POST,
+    EDIT_COMMENT_POST,
     DELETE_COMMENT_POST,
     VOTE_COMMENT
 } from '../actions';
@@ -13,6 +14,11 @@ export default function (state = INITIAL_STATE, action) {
         case FETCH_POST_COMMENTS:
             return _.mapKeys(action.payload, 'id');
         case FETCH_COMMENT_POST:
+            return {
+                ...state,
+                [action.payload.id]: action.payload
+            };
+        case EDIT_COMMENT_POST:
             return {
                 ...state,
                 [action.payload.id]: action.payload

@@ -16,19 +16,24 @@ class CommentsDetail extends Component {
     }
     
     render() {
-        const { comment } = this.props;
+        const { comment, match } = this.props;
+        
         if (!comment) {
             return <div>Loading...</div>;
         }
-        const  { id, title, author, category, body } = comment;
+        
+        const  {
+            parentId, id, title, author, category, body
+        } = comment;
+        
         return (
             <div>
-                <Link to="/"><Button>Back</Button></Link>
-                <Link to={`/posts/edit/${id}`}>
+                <Link to={`/posts/${parentId}`}><Button>Back</Button></Link>
+                <Link to={`/posts/${parentId}/comments/edit/${id}`}>
                     <Button
                         bsStyle="warning"
                     >
-                        Edit Post
+                        Edit Comment
                     </Button>
                 </Link>
                 <Button
