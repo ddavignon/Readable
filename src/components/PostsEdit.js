@@ -58,7 +58,6 @@ class PostsEdit extends Component {
     
     render() {
         const { handleSubmit } = this.props;
-        console.log('post', this.props.post)
         return (
             <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                 <Field
@@ -98,9 +97,10 @@ function validate(values) {
     return errors;
 }
 
-function mapStateToProps(state) {
-    return { post: state.posts.post }
+function mapStateToProps(state, ownProps) {
+    return { post: state.posts[ownProps.match.params.id] }
 }
+
 
 export default reduxForm({
     validate,

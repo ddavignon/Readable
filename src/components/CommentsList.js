@@ -6,25 +6,23 @@ import {
     Button, ListGroup, ListGroupItem
 } from 'react-bootstrap';
 import {
-    fetchPosts,
-    voteForPost
+    fetchPostComments,
+    voteForComment
 } from '../actions';
 import { timestampToDate } from '../utils/dateHelper';
 
-class PostsList extends Component {
+
+class CommentsList extends Component {
+    
     componentWillMount() {
-        this.props.fetchPosts();
+        const { fetchPostComments, postId } = this.props;
+        fetchPostComments(postId);
     }
     
-    renderPosts() {
-        const { posts, voteForPost } = this.props;
-        
-        if (posts.length === 0) {
-            return <div>No posts found for the category!</div>
-        }
-        
-        if (posts) {
-            return _.map(posts, (post, id) => {
+    renderCommentsList() {
+        const { comments, voteForComment } = this.props
+        if (comments) {
+            return _.map(comments, (post, id) => {
                 return (
                         <ListGroupItem
                             header={post.title}
@@ -36,10 +34,10 @@ class PostsList extends Component {
                             <Link to={`posts/${post.id}`} key={post.id}>
                                 <Button>Read Post</Button>
                             </Link>
-                            <Button onClick={() => voteForPost(id, 'upVote')}>
+                            <Button onClick={() => voteForComment(post.id, 'upVote')}>
                                 upvote
                             </Button>
-                            <Button onClick={() => voteForPost(id, 'downVote')}>
+                            <Button onClick={() => voteForComment(post.id, 'downVote')}>
                                 downvote
                             </Button>
                         </ListGroupItem>
@@ -51,18 +49,16 @@ class PostsList extends Component {
     
     render() {
         return (
-            <ListGroup componentClass="ul">
-                {this.renderPosts()}
-            </ListGroup>
+            <div>{this.renderCommentsList()}</div>
         );
     }
 }
 
 function mapStateToProps (state) {
-    const posts = _.filter(state.posts, post => !post.deleted);
-    return { posts }
+    const comments = _.filter(state.comments, comment => !comment.deleted);
+    return { comments }
 }
 
 export default connect(mapStateToProps, {
-    fetchPosts, voteForPost
-})(PostsList);
+    fetchPostComments, voteForComment
+})(CommentsList);

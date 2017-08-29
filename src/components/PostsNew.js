@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
@@ -41,7 +42,6 @@ class PostsNew extends Component {
     
     render() {
         const { handleSubmit, categories } = this.props;
-        
         return (
             <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
               <Field
@@ -59,8 +59,14 @@ class PostsNew extends Component {
                 name="author"
                 component={this.renderField}
               />
-              <Field name="category" component="select">
-                {categories.map(category => (
+              <label>Category</label>
+              <Field
+                name="category"
+                label="Category"
+                component="select"
+                >
+                <option></option>
+                {_.map(categories, category => (
                     <option
                         key={category.name}
                         value={category.name}
@@ -100,7 +106,7 @@ function validate(values) {
 }
 
 function mapStateToProps(state) {
-    return { categories: state.categories.all }
+    return { categories: state.categories }
 }
 
 export default reduxForm({

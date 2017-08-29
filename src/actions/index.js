@@ -5,10 +5,13 @@ export const FETCH_POST = 'fetch_post';
 export const CREATE_POST = 'create_post';
 export const EDIT_POST = 'edit_post';
 export const DELETE_POST = 'delete_post';
-export const UPVOTE_POST = 'upvote_post';
-export const DOWNVOTE_POST = 'downvote_post';
+export const VOTE_POST = 'vote_post';
 
 export const FETCH_CATEGORIES = 'fetch_categories';
+export const FETCH_CATEGORY_POSTS = 'fetch_category_posts';
+
+export const FETCH_POST_COMMENTS = 'fetch_post_comments';
+export const VOTE_COMMENT = 'vote_comment';
 
 const ROOT_URL = 'https://udacity-react-project2-dustindavignon.c9users.io:8081';
 const AUTH_HEADERS = { 'Authorization': 'whatever-you-want', 'Accept': 'application/json', };
@@ -92,6 +95,13 @@ export function deletePost(id, callback) {
     }
 }
 
+export function voteForPost(id, vote) {
+    return dispatch => {
+        axios.post(`${ROOT_URL}/posts/${id}`, { option: vote })
+            .then(res => dispatch({ type: VOTE_POST, payload: res.data }))
+    }
+}
+
 function fetchPostsSuccess(data) {
     return {
         type: FETCH_POSTS,
@@ -145,4 +155,31 @@ function fetchCategoriesSuccess(data) {
         type: FETCH_CATEGORIES,
         payload: data
     };
+}
+
+export function fetchCategoryPosts(category) {
+    return dispatch => {
+        axios.get(`${ROOT_URL}/${category}/posts`)
+            .then(res => dispatch({ type: FETCH_CATEGORY_POSTS, payload: res.data }));
+    }
+}
+
+/*
+Actions for comments
+*/
+
+export function fetchPostComments(postId) {
+    return dispatch => {
+        axios.get(`${ROOT_URL}/posts/${postId}/comments`)
+            .then(res => dispatch({ type: FETCH_POST_COMMENTS, payload: res.data }))
+    }
+}
+
+export function voteForComment(id, vote) {
+    return dispatch => {
+        axios.post(`${ROOT_URL}/comments/${id}`, { option: vote })
+            .then(res => dispatch({ type: VOTE_COMMENT, payload: res.data }))
+            .catch(err => console.log(err))
+            
+    }
 }

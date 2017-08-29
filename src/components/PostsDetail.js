@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import CommentsList from './CommentsList';
 import { fetchPost, deletePost } from '../actions';
 
 class PostsDetail extends Component {
@@ -37,15 +38,16 @@ class PostsDetail extends Component {
                     Delete Post
                 </Button>
                 <h2>{post.title}</h2>
-                <h6>{post.category}</h6>
+                <h4>{post.author} <small>{post.category}</small></h4>
                 <p>{post.body}</p>
+                <CommentsList postId={post.id} />
             </div>    
         );
     }
 }
 
-function mapStateToProps(state) {
-    return { post: state.posts.post }
+function mapStateToProps(state, ownProps) {
+    return { post: state.posts[ownProps.match.params.id] }
 }
 
 export default connect(mapStateToProps, { fetchPost, deletePost })(PostsDetail);
