@@ -75,7 +75,7 @@ class PostsEdit extends Component {
                     <FormControl.Static>{post ? post.author : ''}</FormControl.Static>
                 </FormGroup>
                 <Button type="submit" bsStyle="primary">Update</Button>
-                <Link to={`/posts/${post ? post.id : ''}`} className="btn btn-danger">Cancel</Link>
+                <Link to={'/'} className="btn btn-danger">Cancel</Link>
             </form>
         );
     }

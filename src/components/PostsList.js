@@ -8,11 +8,13 @@ import {
     Button,
     Label,
     Glyphicon,
-    ListGroup
+    ListGroup,
+    ButtonGroup
 } from 'react-bootstrap';
 import {
     fetchPosts,
-    voteForPost
+    voteForPost,
+    deletePost
 } from '../actions';
 import { timestampToDate } from '../utils/dateHelper';
 
@@ -20,6 +22,10 @@ import { timestampToDate } from '../utils/dateHelper';
 class PostsList extends Component {
     componentWillMount() {
         this.props.fetchPosts();
+    }
+    
+    deleteButtonPress(id) {
+        this.props.deletePost(id, () => {});
     }
     
     renderPosts() {
@@ -33,6 +39,21 @@ class PostsList extends Component {
             return _.map(posts, post => {
                 return (
                     <li key={post.id} className="list-group-item">
+                    <ButtonGroup className="pull-right">
+                        <Link to={`/posts/edit/${post.id}`}>
+                            <Button
+                                bsStyle="warning"
+                            >
+                                Edit Post
+                            </Button>
+                        </Link>
+                        <Button
+                            bsStyle="danger"
+                            onClick={() => this.deleteButtonPress(post.id)}
+                        >
+                            Delete Post
+                        </Button>
+                    </ButtonGroup>
                         <h2><Link
                                 to={`posts/${post.id}`}
                                 style={{ textDecoration: 'none' }}
@@ -81,5 +102,5 @@ function mapStateToProps (state) {
 }
 
 export default connect(mapStateToProps, {
-    fetchPosts, voteForPost
+    fetchPosts, voteForPost, deletePost
 })(PostsList);
