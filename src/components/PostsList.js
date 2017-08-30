@@ -35,6 +35,7 @@ class PostsList extends Component {
                     <li key={post.id} className="list-group-item">
                         <h2><Link
                                 to={`posts/${post.id}`}
+                                style={{ textDecoration: 'none' }}
                             >
                                 {post.title}
                             </Link>
