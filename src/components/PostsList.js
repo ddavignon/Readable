@@ -33,13 +33,11 @@ class PostsList extends Component {
             return _.map(posts, post => {
                 return (
                     <li key={post.id} className="list-group-item">
-                        <Link
-                            to={`posts/${post.id}`}
-                            className="pull-right"
-                        >
-                            <Button>Read Post</Button>
-                        </Link>
-                        <h2>{post.title}
+                        <h2><Link
+                                to={`posts/${post.id}`}
+                            >
+                                {post.title}
+                            </Link>
                             <br/><small>Posted by {post.author}</small>
                         </h2>
                         <p>{post.body}</p>
