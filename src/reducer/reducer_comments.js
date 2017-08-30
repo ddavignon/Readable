@@ -2,12 +2,15 @@ import _ from 'lodash';
 import  {
     FETCH_POST_COMMENTS,
     FETCH_COMMENT_POST,
+    FETCH_POST_COMMENTS_COUNT,
     EDIT_COMMENT_POST,
     DELETE_COMMENT_POST,
     VOTE_COMMENT
 } from '../actions';
 
-const INITIAL_STATE = {};
+const INITIAL_STATE = {
+    commentCount: {}
+};
 
 export default function (state = INITIAL_STATE, action) {
     switch (action.type) {
@@ -17,6 +20,15 @@ export default function (state = INITIAL_STATE, action) {
             return {
                 ...state,
                 [action.payload.id]: action.payload
+            };
+        case FETCH_POST_COMMENTS_COUNT:
+            const { postId, count } = action.payload;
+            return {
+                ...state,
+                commentCount: {
+                    ...state['commentCount'],
+                    [postId]: count
+                }
             };
         case EDIT_COMMENT_POST:
             return {

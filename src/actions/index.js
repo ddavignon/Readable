@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import axios from 'axios';
 
 export const FETCH_POSTS = 'fetch_posts';
@@ -11,6 +12,7 @@ export const FETCH_CATEGORIES = 'fetch_categories';
 export const FETCH_CATEGORY_POSTS = 'fetch_category_posts';
 
 export const FETCH_POST_COMMENTS = 'fetch_post_comments';
+export const FETCH_POST_COMMENTS_COUNT = 'fetch_post_comments_count';
 export const FETCH_COMMENT_POST = 'fetch_comment_post';
 export const CREATE_COMMENT_POST = 'create_comment_post';
 export const EDIT_COMMENT_POST = 'edit_comment_post';
@@ -174,7 +176,22 @@ Actions for comments
 export function fetchPostComments(postId) {
     return dispatch => {
         axios.get(`${ROOT_URL}/posts/${postId}/comments`)
-            .then(res => dispatch({ type: FETCH_POST_COMMENTS, payload: res.data }))
+            .then(res => {
+                dispatch({ type: FETCH_POST_COMMENTS, payload: res.data })
+            })
+    }
+}
+
+export function fetchPostCommentsCount(postId, callback) {
+    return dispatch => {
+        axios.get(`${ROOT_URL}/posts/${postId}/comments`)
+            .then(res => {
+                const comments = _.filter(res.data, comment => !comment.deleted);
+                const count = Object.keys(comments).length;
+                const data = { postId, count }
+                callback(data);
+                dispatch({ type: FETCH_POST_COMMENTS_COUNT, payload: data });
+        });
     }
 }
 
@@ -213,7 +230,6 @@ export function editPostComment(id, values, callback) {
         axios.put(`${ROOT_URL}/comments/${id}`, values)
             .then(res => {
                 callback();
-                console.log(id, values)
                 dispatch({ type: EDIT_COMMENT_POST, payload: res.data })
             });
         
