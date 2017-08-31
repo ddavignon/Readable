@@ -8,6 +8,7 @@ import {
 import { capitalize } from '../utils/helpers'
 import {
     fetchCategories,
+    fetchCategoryPosts,
     fetchPosts
 } from '../actions';
 
@@ -26,7 +27,10 @@ class CategoriesList extends Component {
                     <ListGroupItem
                         key={category.path}
                     >
-                        <Link to={`/${category.path}`}>
+                        <Link
+                            to={`/${category.path}`}
+                            onClick={() => fetchCategoryPosts(category.path)}
+                        >
                             {capitalize(category.name)}
                         </Link>
                     </ListGroupItem>
@@ -42,7 +46,7 @@ class CategoriesList extends Component {
         return (
             <div>
                 <ListGroupItem>
-                    <Link to={`/`}>All</Link>
+                    <Link to="/">All</Link>
                 </ListGroupItem>
                 <div>{this.renderList()}</div>
             </div>
@@ -55,5 +59,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-    fetchCategories, fetchPosts
+    fetchCategories, fetchPosts, fetchCategoryPosts
 })(CategoriesList);

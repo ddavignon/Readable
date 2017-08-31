@@ -16,7 +16,6 @@ import PostsListDetail from './PostsListDetail';
 
 class PostsList extends Component {
     componentWillMount() {
-        console.log(this.props);
         if(this.props.match.params.category) {
             const {
                 fetchCategoryPosts,
