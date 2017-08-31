@@ -19,7 +19,7 @@ class App extends Component {
           <Grid>
             <Switch>
               <Route path="/" exact component={PostsMain} />
-              <Route path="/:category" component={props => <PostsMain {...props} />} />
+              <Route path="/:category" exact component={props => <PostsMain {...props} />} />
               <Route path="/posts/new" component={PostsNew} />
               <Route path="/posts/edit/:id" children={props => <PostsEdit {...props}/>} />
               <Route path="/posts/:id" exact component={PostsDetail} />
