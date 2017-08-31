@@ -7,6 +7,7 @@ export const CREATE_POST = 'create_post';
 export const EDIT_POST = 'edit_post';
 export const DELETE_POST = 'delete_post';
 export const VOTE_POST = 'vote_post';
+export const POST_SORT_ORDER = 'post_sort_order';
 
 export const FETCH_CATEGORIES = 'fetch_categories';
 export const FETCH_CATEGORY_POSTS = 'fetch_category_posts';
@@ -104,6 +105,13 @@ export function voteForPost(id, vote) {
     return dispatch => {
         axios.post(`${ROOT_URL}/posts/${id}`, { option: vote })
             .then(res => dispatch({ type: VOTE_POST, payload: res.data }))
+    }
+}
+
+export function postSortOrder(sortType) {
+    return {
+        type: POST_SORT_ORDER,
+        payload: sortType
     }
 }
 

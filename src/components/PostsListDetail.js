@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -34,7 +33,7 @@ class PostsListDetail extends Component {
     }
     
     render() {
-        const { post, voteForPost, count } = this.props;
+        const { post, voteForPost } = this.props;
         return (
             <li className="list-group-item">
             <ButtonGroup className="pull-right">
