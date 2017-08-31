@@ -23,7 +23,7 @@ class PostsMain extends Component {
                             </Link>
                         </Col>
                     </Row>
-                    <PostsList />
+                    <PostsList {...this.props} />
                 </Col>
             </Row>
             );

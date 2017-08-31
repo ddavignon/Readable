@@ -165,7 +165,8 @@ function fetchCategoriesSuccess(data) {
 export function fetchCategoryPosts(category) {
     return dispatch => {
         axios.get(`${ROOT_URL}/${category}/posts`)
-            .then(res => dispatch({ type: FETCH_CATEGORY_POSTS, payload: res.data }));
+            .then(res => dispatch({ type: FETCH_CATEGORY_POSTS, payload: res.data }))
+            .catch(err => console.log(err));
     }
 }
 

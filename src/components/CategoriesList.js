@@ -1,13 +1,13 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
     ListGroupItem
 } from 'react-bootstrap';
 import { capitalize } from '../utils/helpers'
 import {
     fetchCategories,
-    fetchCategoryPosts,
     fetchPosts
 } from '../actions';
 
@@ -25,9 +25,10 @@ class CategoriesList extends Component {
                 return (
                     <ListGroupItem
                         key={category.path}
-                        onClick={() => fetchCategoryPosts(category.path)}
                     >
-                        {capitalize(category.name)}
+                        <Link to={`/${category.path}`}>
+                            {capitalize(category.name)}
+                        </Link>
                     </ListGroupItem>
                 );
             });
@@ -40,10 +41,8 @@ class CategoriesList extends Component {
     render() {
         return (
             <div>
-                <ListGroupItem
-                    onClick={() => this.props.fetchPosts()}
-                >
-                    All
+                <ListGroupItem>
+                    <Link to={`/`}>All</Link>
                 </ListGroupItem>
                 <div>{this.renderList()}</div>
             </div>
@@ -56,5 +55,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-    fetchCategories, fetchCategoryPosts, fetchPosts
+    fetchCategories, fetchPosts
 })(CategoriesList);

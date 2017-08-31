@@ -8,14 +8,23 @@ import {
     fetchPosts,
     voteForPost,
     deletePost,
-    fetchPostComments
+    fetchPostComments,
+    fetchCategoryPosts
 } from '../actions';
 import PostsListDetail from './PostsListDetail';
 
 
 class PostsList extends Component {
     componentWillMount() {
-        this.props.fetchPosts();
+        console.log(this.props);
+        if(this.props.match.params.category) {
+            const {
+                fetchCategoryPosts,
+                match: { params: { category } } } = this.props;
+            fetchCategoryPosts(category.toLowerCase());
+        } else {
+            this.props.fetchPosts();
+        }
     }
     
     deleteButtonPress(id) {
@@ -51,6 +60,6 @@ function mapStateToProps (state) {
 }
 
 export default connect(mapStateToProps, {
-    fetchPosts, voteForPost, deletePost, fetchPostComments
+    fetchPosts, voteForPost, deletePost, fetchPostComments, fetchCategoryPosts
 })(PostsList);
 
