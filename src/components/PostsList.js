@@ -51,7 +51,7 @@ class PostsList extends Component {
         const { postSortOrder } = this.props;
         return (
             <div>
-                <div className="form-inline">
+                <div className="form-inline text-right">
                   <label htmlFor="sel1">SortBy:</label>
                   <select onChange={event => postSortOrder(event.target.value)}className="form-control" id="sel1">
                     <option value='voteScore'>Votes</option>
