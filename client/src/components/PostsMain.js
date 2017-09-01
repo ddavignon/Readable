@@ -26,7 +26,7 @@ class PostsMain extends Component {
                     <PostsList {...this.props} />
                 </Col>
             </Row>
-            );
+        );
     }
 }
 
