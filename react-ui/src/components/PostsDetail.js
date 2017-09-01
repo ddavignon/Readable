@@ -17,6 +17,7 @@ import {
 } from '../actions';
 import { timestampToDate } from '../utils/dateHelper';
 
+
 class PostsDetail extends Component {
     state = {
         commentCount: 0    

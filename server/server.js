@@ -7,10 +7,12 @@ const config = require('./config')
 const categories = require('./categories')
 const posts = require('./posts')
 const comments = require('./comments')
+const path = require('path');
 
 const app = express()
 
-app.use(express.static('public'))
+// app.use(express.static('public'))
+app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 app.use(cors())
 
 

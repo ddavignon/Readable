@@ -1,0 +1,44 @@
+{
+  "name": "server",
+  "version": "0.0.1",
+  "description": "A server for the Udacity Reddit Clone project for ReactND",
+  "main": "index.js",
+  "keywords": [
+    "udacity",
+    "redux",
+    "readable",
+    "react",
+    "node",
+    "heroku",
+    "create-react-app"
+  ],
+  "author": "David Harris",
+  "license": "ISC",
+  "engines": {
+    "node": "6.11.x"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cors": "^2.8.3",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.2",
+    "clone": "^2.1.1",
+    "redux":"^3.7.2",
+    "react-redux":"^5.0.5",
+    "react-router":"^4.1.1",
+    "react-router-dom":"4.1.1"
+  },
+  "scripts": {
+    "start": "node server/server.js",
+    "heroku-postbuild": "cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+  },
+  "cacheDirectories": [
+    "node_modules",
+    "react-ui/node_modules"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mars/heroku-cra-node.git"
+  },
+  "devDependencies": {}
+ }
