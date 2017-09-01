@@ -4,13 +4,12 @@
 ## Usage
 
 ```bash
-cd client
+cd react/ui
 npm install
 npm start
 
-cd server
 npm install
-node server.js
+node server/server.js
 ```
 Running demo can be found at [https://readable-react.herokuapp.com/](https://readable-react.herokuapp.com/)
 
