@@ -4,11 +4,12 @@
 ## Usage
 
 ```bash
-npm install
 cd client
+npm install
 npm start
 
 cd server
+npm install
 node server.js
 ```
 
