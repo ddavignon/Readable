@@ -9,12 +9,25 @@ import {
     Glyphicon
 } from 'react-bootstrap';
 import CommentsList from './CommentsList';
-import { fetchPost, deletePost, voteForPost } from '../actions';
+import {
+    fetchPost,
+    deletePost,
+    voteForPost,
+    fetchPostCommentsCount
+} from '../actions';
 import { timestampToDate } from '../utils/dateHelper';
 
 class PostsDetail extends Component {
+    state = {
+        commentCount: 0    
+    }
+    
     componentWillMount() {
-        this.props.fetchPost(this.props.match.params.id);
+        const { id } = this.props.match.params;
+        this.props.fetchPost(id);
+        this.props.fetchPostCommentsCount(id, (data) => {
+            this.setState({ commentCount: data.count })
+        });
     }
     
     componentDidReceiveProps(nextProps) {
@@ -55,6 +68,7 @@ class PostsDetail extends Component {
                             <div className="badge">{timestampToDate(post.timestamp)}</div>
                             <h4><Label bsStyle="primary">{post.category}</Label></h4>
                             <p>{post.body}</p>
+                            {this.state.commentCount ? this.state.commentCount : 0 } comments
                         </Col>
                         <Col md={4} className="text-right">
                             <h3><Label bsStyle={post.voteScore < 0 ? "danger": "success"}>{post.voteScore}</Label></h3>
@@ -84,6 +98,8 @@ function mapStateToProps(state, ownProps) {
     return { post: state.posts[ownProps.match.params.id] }
 }
 
-export default connect(mapStateToProps, { fetchPost, deletePost, voteForPost })(PostsDetail);
+export default connect(mapStateToProps, {
+    fetchPost, deletePost, voteForPost, fetchPostCommentsCount
+})(PostsDetail);
 
 

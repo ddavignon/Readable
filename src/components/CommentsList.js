@@ -9,7 +9,9 @@ import {
 } from 'react-bootstrap';
 import {
     fetchPostComments,
-    voteForComment
+    voteForComment,
+    deleteCommentPost,
+    fetchPostCommentsCount
 } from '../actions';
 import { timestampToDate } from '../utils/dateHelper';
 
@@ -19,6 +21,18 @@ class CommentsList extends Component {
     componentWillMount() {
         const { fetchPostComments, postId } = this.props;
         fetchPostComments(postId);
+    }
+    
+    deleteButtonPress(id) {
+        const {
+            deleteCommentPost,
+            fetchPostComments,
+            postId
+        } = this.props;
+        
+        deleteCommentPost(id, () => {
+            fetchPostComments(postId);
+        });
     }
     
     renderCommentsList() {
@@ -42,6 +56,19 @@ class CommentsList extends Component {
                             <Button onClick={() => voteForComment(post.id, 'downVote')}>
                                 downvote
                             </Button>
+                            <Link to={`/posts/${post.parentId}/comments/edit/${post.id}`}>
+                                <Button
+                                    bsStyle="warning"
+                                >
+                                    Edit Comment
+                                </Button>
+                            </Link>
+                            <Button
+                                bsStyle="danger"
+                                onClick={() => this.deleteButtonPress(post.id)}
+                            >
+                                Delete Comment
+                            </Button>
                         </ListGroupItem>
                 );
             });
@@ -62,5 +89,5 @@ function mapStateToProps (state) {
 }
 
 export default connect(mapStateToProps, {
-    fetchPostComments, voteForComment
+    fetchPostComments, voteForComment, deleteCommentPost, fetchPostCommentsCount
 })(CommentsList);

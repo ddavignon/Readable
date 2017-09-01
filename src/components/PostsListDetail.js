@@ -36,21 +36,21 @@ class PostsListDetail extends Component {
         const { post, voteForPost } = this.props;
         return (
             <li className="list-group-item">
-            <ButtonGroup className="pull-right">
-                <Button
-                    bsStyle="danger"
-                    onClick={() => this.deleteButtonPress(post.id)}
-                >
-                    Delete Post
-                </Button>
-                <Link to={`/posts/edit/${post.id}`}>
+                <ButtonGroup className="pull-right">
                     <Button
-                        bsStyle="warning"
+                        bsStyle="danger"
+                        onClick={() => this.deleteButtonPress(post.id)}
                     >
-                        Edit Post
+                        Delete Post
                     </Button>
-                </Link>
-            </ButtonGroup>
+                    <Link to={`/posts/edit/${post.id}`}>
+                        <Button
+                            bsStyle="warning"
+                        >
+                            Edit Post
+                        </Button>
+                    </Link>
+                </ButtonGroup>
                 <h2><Link
                         to={`posts/${post.id}`}
                         style={{ textDecoration: 'none' }}
