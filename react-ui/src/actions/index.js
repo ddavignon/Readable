@@ -20,7 +20,7 @@ export const EDIT_COMMENT_POST = 'edit_comment_post';
 export const DELETE_COMMENT_POST = 'delete_comment_post';
 export const VOTE_COMMENT = 'vote_comment';
 
-const ROOT_URL = '';
+const ROOT_URL = 'http://localhost:5001';
 const AUTH_HEADERS = { 'Authorization': 'whatever-you-want', 'Accept': 'application/json', };
 
 axios.defaults.headers.common['Authorization'] = AUTH_HEADERS;

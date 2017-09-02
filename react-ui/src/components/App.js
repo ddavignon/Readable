@@ -20,12 +20,12 @@ class App extends Component {
           <Grid>
             <Switch>
               <Route path="/" exact component={PostsMain} />
+              <Route path="/posts/new" exact component={PostsNew} />
               <Route path="/:category" exact component={props => <PostsMain {...props} />} />
-              <Route path="/posts/new" component={PostsNew} />
-              <Route path="/posts/edit/:id" children={props => <PostsEdit {...props}/>} />
-              <Route path="/posts/:id" exact component={PostsDetail} />
-              <Route path="/posts/:id/comments/new" component={CommentsNew} />
-              <Route path="/posts/:postId/comments/edit/:id" component={props => <CommentsEdit {...props}/>} />
+              <Route path="/:category/edit/:id" children={props => <PostsEdit {...props}/>} />
+              <Route path="/:category/:id" exact component={PostsDetail} />
+              <Route path="/:category/:id/comments/new" component={CommentsNew} />
+              <Route path="/:category/:postId/comments/edit/:id" component={props => <CommentsEdit {...props}/>} />
               <Route path="/comments/:id" exact component={CommentsDetail} />
             </Switch>
           </Grid>

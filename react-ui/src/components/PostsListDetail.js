@@ -52,7 +52,7 @@ class PostsListDetail extends Component {
                     </Link>
                 </ButtonGroup>
                 <h2><Link
-                        to={`posts/${post.id}`}
+                        to={`${post.category}/${post.id}`}
                         style={{ textDecoration: 'none' }}
                     >
                         {post.title}

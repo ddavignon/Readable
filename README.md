@@ -4,7 +4,7 @@
 ## Usage
 
 ```bash
-cd react/ui
+cd react-ui
 npm install
 npm start
 
