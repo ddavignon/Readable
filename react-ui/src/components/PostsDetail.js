@@ -43,14 +43,22 @@ class PostsDetail extends Component {
     }
     
     render() {
-        const { post, voteForPost } = this.props;
+        const {
+            post,
+            voteForPost,
+            match: {
+                params: {
+                    category
+                }
+            }
+        } = this.props;
         if (!post) {
             return <NotFound />;
         }
         return (
             <div>
                 <Link to="/"><Button>Back</Button></Link>
-                <Link to={`/posts/edit/${post.id}`}>
+                <Link to={`/${category}/edit/${post.id}`}>
                     <Button
                         bsStyle="warning"
                     >

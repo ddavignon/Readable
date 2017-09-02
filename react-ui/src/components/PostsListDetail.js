@@ -43,7 +43,7 @@ class PostsListDetail extends Component {
                     >
                         Delete Post
                     </Button>
-                    <Link to={`/posts/edit/${post.id}`}>
+                    <Link to={`/${post.category}/edit/${post.id}`}>
                         <Button
                             bsStyle="warning"
                         >
