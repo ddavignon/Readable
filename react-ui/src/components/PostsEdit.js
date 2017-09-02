@@ -9,6 +9,8 @@ import {
 } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { editPost, fetchPost } from '../actions';
+import NotFound from './NotFound';
+
 
 class PostsEdit extends Component {
     componentWillMount() {
@@ -58,8 +60,16 @@ class PostsEdit extends Component {
     }
     
     render() {
-        const { handleSubmit, post } = this.props;
+        const {
+            handleSubmit,
+            post,
+            match: { params: { category } },
+        } = this.props;
+        
         return (
+            (!post || post.category !== category)
+            ? <NotFound />
+            :
             <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                 <Field
                 label="Title:"

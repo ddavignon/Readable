@@ -34,6 +34,7 @@ class PostsListDetail extends Component {
     
     render() {
         const { post, voteForPost } = this.props;
+        
         return (
             <li className="list-group-item">
                 <ButtonGroup className="pull-right">

@@ -9,6 +9,7 @@ import {
 import { connect } from 'react-redux';
 import { createPostComment } from '../actions';
 
+
 class CommentsNew extends Component {
     
     renderField(field) {

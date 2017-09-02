@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { createPost, fetchCategories } from '../actions';
 import { capitalize } from '../utils/helpers';
 
+
 class PostsNew extends Component {
     
     componentWillMount() {

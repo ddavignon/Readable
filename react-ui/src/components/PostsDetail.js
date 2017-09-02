@@ -52,54 +52,55 @@ class PostsDetail extends Component {
                 }
             }
         } = this.props;
-        if (!post) {
-            return <NotFound />;
-        }
+
         return (
-            <div>
-                <Link to="/"><Button>Back</Button></Link>
-                <Link to={`/${category}/edit/${post.id}`}>
+            (!post || post.category !== category)
+            ? <NotFound />
+            :
+                <div>
+                    <Link to="/"><Button>Back</Button></Link>
+                    <Link to={`/${category}/edit/${post.id}`}>
+                        <Button
+                            bsStyle="warning"
+                        >
+                            Edit Post
+                        </Button>
+                    </Link>
                     <Button
-                        bsStyle="warning"
+                        bsStyle="danger"
+                        onClick={this.deleteButtonPress.bind(this)}
                     >
-                        Edit Post
+                        Delete Post
                     </Button>
-                </Link>
-                <Button
-                    bsStyle="danger"
-                    onClick={this.deleteButtonPress.bind(this)}
-                >
-                    Delete Post
-                </Button>
-                <Row>
-                    <Col md={12}>
-                        <Col md={8} className="text-left">
-                            <h2>{post.title}<br/><small>Posted by {post.author}</small></h2>
-                            <div className="badge">{timestampToDate(post.timestamp)}</div>
-                            <h4><Label bsStyle="primary">{post.category}</Label></h4>
-                            <p>{post.body}</p>
-                            {this.state.commentCount ? this.state.commentCount : 0 } comments
+                    <Row>
+                        <Col md={12}>
+                            <Col md={8} className="text-left">
+                                <h2>{post.title}<br/><small>Posted by {post.author}</small></h2>
+                                <div className="badge">{timestampToDate(post.timestamp)}</div>
+                                <h4><Label bsStyle="primary">{post.category}</Label></h4>
+                                <p>{post.body}</p>
+                                {this.state.commentCount ? this.state.commentCount : 0 } comments
+                            </Col>
+                            <Col md={4} className="text-right">
+                                <h3><Label bsStyle={post.voteScore < 0 ? "danger": "success"}>{post.voteScore}</Label></h3>
+                                <Button onClick={() => voteForPost(post.id, 'upVote')}>
+                                    <Glyphicon glyph="thumbs-up" />
+                                </Button>
+                                <Button onClick={() => voteForPost(post.id, 'downVote')}>
+                                    <Glyphicon glyph="thumbs-down" />
+                                </Button>
+                            </Col>
                         </Col>
-                        <Col md={4} className="text-right">
-                            <h3><Label bsStyle={post.voteScore < 0 ? "danger": "success"}>{post.voteScore}</Label></h3>
-                            <Button onClick={() => voteForPost(post.id, 'upVote')}>
-                                <Glyphicon glyph="thumbs-up" />
-                            </Button>
-                            <Button onClick={() => voteForPost(post.id, 'downVote')}>
-                                <Glyphicon glyph="thumbs-down" />
-                            </Button>
+                    </Row>
+                    <Row>
+                        <Col md={12} className="text-right">
+                        <Link to={`/${post.category}/${post.id}/comments/new`}>
+                                <Button bsStyle="primary">Add comment</Button>
+                            </Link>  
                         </Col>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md={12} className="text-right">
-                      <Link to={`/${post.category}/${post.id}/comments/new`}>
-                            <Button bsStyle="primary">Add comment</Button>
-                        </Link>  
-                    </Col>
-                </Row>
-                <CommentsList postCategory={post.category} postId={post.id} />
-            </div>    
+                    </Row>
+                    <CommentsList postCategory={post.category} postId={post.id} />
+                </div>    
         );
     }
 }

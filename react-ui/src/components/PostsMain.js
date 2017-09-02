@@ -4,6 +4,7 @@ import { Row, Col, Button } from 'react-bootstrap';
 import PostsList from './PostsList';
 import CategoriesList from './CategoriesList';
 
+
 class PostsMain extends Component {
     render() {
         return (
