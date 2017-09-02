@@ -1,6 +1,6 @@
 import  {
     POST_SORT_ORDER
-} from '../actions';
+} from '../actions/types';
 
 const INITIAL_STATE = 'voteScore';
 

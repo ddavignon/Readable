@@ -6,7 +6,7 @@ import  {
     DELETE_POST,
     FETCH_CATEGORY_POSTS,
     VOTE_POST
-} from '../actions';
+} from '../actions/types';
 
 const INITIAL_STATE = {};
 

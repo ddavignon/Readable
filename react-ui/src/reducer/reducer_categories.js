@@ -1,6 +1,6 @@
 import {
     FETCH_CATEGORIES
-} from '../actions';
+} from '../actions/types';
 
 const INITIAL_STATE = {};
 
