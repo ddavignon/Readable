@@ -37,7 +37,7 @@ class CommentsList extends Component {
     }
     
     renderCommentsList() {
-        const { comments, voteForComment } = this.props
+        const { comments, voteForComment, postCategory } = this.props
         if (comments) {
             return _.map(comments, (post, id) => {
                 return (
@@ -48,16 +48,13 @@ class CommentsList extends Component {
                             <div>{timestampToDate(post.timestamp)} by {post.author}</div> 
                             <div>{post.body}</div>
                             <div>{post.category} {post.voteScore}</div>
-                            <Link to={`/comments/${post.id}`} key={post.id}>
-                                <Button>Read Comment</Button>
-                            </Link>
                             <Button onClick={() => voteForComment(post.id, 'upVote')}>
                                 upvote
                             </Button>
                             <Button onClick={() => voteForComment(post.id, 'downVote')}>
                                 downvote
                             </Button>
-                            <Link to={`/posts/${post.parentId}/comments/edit/${post.id}`}>
+                            <Link to={`/${postCategory}/${post.parentId}/comments/edit/${post.id}`}>
                                 <Button
                                     bsStyle="warning"
                                 >

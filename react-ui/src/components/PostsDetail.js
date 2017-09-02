@@ -85,12 +85,12 @@ class PostsDetail extends Component {
                 </Row>
                 <Row>
                     <Col md={12} className="text-right">
-                      <Link to={`/posts/${post.id}/comments/new`}>
+                      <Link to={`/${post.category}/${post.id}/comments/new`}>
                             <Button bsStyle="primary">Add comment</Button>
                         </Link>  
                     </Col>
                 </Row>
-                <CommentsList postId={post.id} />
+                <CommentsList postCategory={post.category} postId={post.id} />
             </div>    
         );
     }

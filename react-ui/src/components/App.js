@@ -4,8 +4,7 @@ import { Grid } from 'react-bootstrap';
 import PostsMain from './PostsMain';
 import PostsDetail from './PostsDetail';
 import PostsNew from './PostsNew';
-import PostsEdit from './PostsEdit'
-import CommentsDetail from './CommentsDetail';
+import PostsEdit from './PostsEdit';
 import CommentsNew from './CommentsNew';
 import CommentsEdit from './CommentsEdit';
 import NavbarHeader from './NavbarHeader';
@@ -22,7 +21,6 @@ class App extends Component {
             <Switch>
               <Route path="/" exact component={PostsMain} />
               <Route path="/posts/new" exact component={PostsNew} />
-              <Route path="/comments/:id" exact component={CommentsDetail} />git
               <Route path="/:category" exact component={props => <PostsMain {...props} />} />
               <Route path="/:category/edit/:id" children={props => <PostsEdit {...props}/>} />
               <Route path="/:category/:id" exact component={PostsDetail} />

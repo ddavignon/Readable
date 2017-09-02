@@ -48,14 +48,23 @@ class CommentsEdit extends Component {
     }
     
     onSubmit(values) {
-        const postId = this.props.match.params.id
-        this.props.editPostComment(postId, values, () => {
-            this.props.history.push(`/comments/${postId}`);
+        const { category, postId, id } = this.props.match.params
+        this.props.editPostComment(id, values, () => {
+            this.props.history.push(`/${category}/${postId}`);
         });
     }
     
     render() {
-        const { handleSubmit, match, comment } = this.props;
+        const {
+            handleSubmit,
+            comment,
+            match: {
+                params: {
+                    category,
+                    postId
+                }
+            }
+        } = this.props;
         return (
             <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
               <Field
@@ -66,7 +75,7 @@ class CommentsEdit extends Component {
               <ControlLabel>Author</ControlLabel>
                 <FormControl.Static>{comment ? comment.author : ''}</FormControl.Static>
                 <Button type="submit" bsStyle="primary">Update</Button>
-              <Link to={`/comments/${match.params.id}`} className="btn btn-danger">Cancel</Link>
+              <Link to={`/${category}/${postId}`} className="btn btn-danger">Cancel</Link>
             </form>
         );
     }
