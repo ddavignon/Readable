@@ -9,6 +9,7 @@ import {
     Glyphicon
 } from 'react-bootstrap';
 import CommentsList from './CommentsList';
+import NotFound from './NotFound';
 import {
     fetchPost,
     deletePost,
@@ -44,7 +45,7 @@ class PostsDetail extends Component {
     render() {
         const { post, voteForPost } = this.props;
         if (!post) {
-            return <div>Loading...</div>;
+            return <NotFound />;
         }
         return (
             <div>

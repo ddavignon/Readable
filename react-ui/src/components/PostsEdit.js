@@ -49,10 +49,11 @@ class PostsEdit extends Component {
     }
     
     onSubmit(values) {
-        const { editPost, match: { params: { id } }, history } = this.props;
+        const { editPost, match: { params: { id, category } }, history } = this.props;
+        console.log(this.props)
         
         editPost(id, values, () => {
-            history.push(`/posts/${id}`);
+            history.push(`/${category}/${id}`);
         });
     }
     

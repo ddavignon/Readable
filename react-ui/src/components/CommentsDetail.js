@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import NotFound from './NotFound';
 import { fetchCommentPost, deleteCommentPost } from '../actions';
 
 class CommentsDetail extends Component {
@@ -19,7 +20,7 @@ class CommentsDetail extends Component {
         const { comment } = this.props;
         
         if (!comment) {
-            return <div>Loading...</div>;
+            return <NotFound />;
         }
         
         const  {

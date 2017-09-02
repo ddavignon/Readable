@@ -7,6 +7,7 @@ import {
     ListGroup,
     ListGroupItem
 } from 'react-bootstrap';
+import NotFound from './NotFound';
 import {
     fetchPostComments,
     voteForComment,
@@ -73,7 +74,7 @@ class CommentsList extends Component {
                 );
             });
         }
-        return <div>Loading...</div>
+        return <NotFound />
     }
     
     render() {

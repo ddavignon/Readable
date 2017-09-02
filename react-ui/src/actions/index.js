@@ -58,7 +58,7 @@ export function fetchPost(id) {
 
 export function createPost(values, callback) {
     const { title, body, author, category } = values;
-    
+
     const data = {
         id: guid(),
         timestamp: Date.now(),
@@ -214,7 +214,7 @@ export function fetchCommentPost(id) {
 
 export function createPostComment(values, parentId, callback) {
     const { body, author } = values;
-    
+
     const data = {
         id: guid(),
         parentId,
